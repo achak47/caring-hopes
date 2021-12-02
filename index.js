@@ -5,6 +5,8 @@ const port = 3001 ;
 const dotenv = require('dotenv')
 const cors = require('cors');
 const bcrypt = require('bcrypt-nodejs');
+const nodemailer = require ('nodemailer');
+
 dotenv.config() ;
 const Users = require("./models") ;
 const Register = require("./register") ;
@@ -28,10 +30,11 @@ app.get('/api',(req,res)=>{
        })    
    })
 })
-app.post('/register',(req,res)=>{Register.registerdoctor(req,res,bcrypt,doctor)}) ;
+app.post('/register',(req,res)=>{Register.registerdoctor(req,res,bcrypt,nodemailer,doctor)}) ;
 app.post('/registerpeople',(req,res)=>{Register.registerpeople(req,res,bcrypt,public)}) ;
 app.post('/signin',(req,res)=>{Login.doctorlogin(req,res,bcrypt,doctor)}) ;
 app.post('/signinpeople',(req,res)=>{Login.peoplelogin(req,res,bcrypt,public)}) ;
+app.post ('/email-activate-doctor', (req, res) => {Register.emailActivateDoctor(req, res, bcrypt, doctor)});
 app.listen(process.env.PORT || port , ()=> {
     mongoose.connect(process.env.mongopath,{
         useNewUrlParser: true ,
