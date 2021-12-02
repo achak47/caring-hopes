@@ -120,16 +120,6 @@ const registerpeople = (req,res,bcrypt, nodemailer, public)=>{
         if(result.length){res.status(200).json('User with the same Email Already Exists');
     }
         else{
-            // new public({
-            //     name : name,
-            //     number : number,
-            //     email: email,
-            //     password: hash
-            // }).save((err,result)=>{
-            //     if(err) throw err ;
-            //     else res.status(200).json('Success!')
-            // })
-
             const token = jwt.sign ({name, email, password, number}, account_activate_api_key, {expiresIn : '20m'});
 
             //reusable transporter objec using the default SMTP transport
