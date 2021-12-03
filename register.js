@@ -47,7 +47,7 @@ const registerdoctor = (req,res,bcrypt,nodemailer,doctor)=>{
                 text : "Welcome to Caring Hopes Teleconsultancy service !",
                 html : `
                 <h2>Please click on the given link to activate your account</h2>
-                <p>${CLIENT_URL}/authentication/activate/${token}</p>
+                <p>${CLIENT_URL}/authentication/activate/doctor/${token}</p>
                 `
               }
               let info = transporter.sendMail (mailOptions, (error, info) => {
@@ -79,16 +79,25 @@ const emailActivateDoctor = (req, res, bcrypt, doctor) => {
             const {name, email, password, desc, number} = decodedToken;
             const hash = bcrypt.hashSync(password);
 
-            new doctor({
-                name : name,
-                number : number,
-                email: email,
-                desc : desc,
-                password: hash,
-
-            }).save((err,result)=>{
-                if(err) throw err ;
-                else res.status(200).json('Success!')
+            doctor.findOne ({'email' : email}, (err, result) => {
+                if (err ) throw err;
+                if (result.length) {
+                    //do nothing cause email already exists in the database
+                    //to avoid reinsertion on refresh
+                }
+                else {
+                    new doctor({
+                        name : name,
+                        number : number,
+                        email: email,
+                        desc : desc,
+                        password: hash,
+        
+                    }).save((err,result)=>{
+                        if(err) throw err ;
+                        else res.status(200).json('Success!')
+                    })
+                }
             })
         }) 
     }
@@ -173,16 +182,24 @@ const emailActivatePublic = (req, res, bcrypt, public) => {
 
             const {name, email, password, desc, number} = decodedToken;
             const hash = bcrypt.hashSync(password);
-
-            new public({
-                name : name,
-                number : number,
-                email: email,
-                password: hash,
-
-            }).save((err,result)=>{
-                if(err) throw err ;
-                else res.status(200).json('Success!')
+            public.find ({'email' : email}, (err, result) => {
+                if (err) throw err;
+                if (result.length){
+                    //do nothing to prevent duplicate entries in database
+                }
+                else {
+                    //insert into database
+                    new public({
+                        name : name,
+                        number : number,
+                        email: email,
+                        password: hash,
+        
+                    }).save((err,result)=>{
+                        if(err) throw err ;
+                        else res.status(200).json('Success!')
+                    })
+                }
             })
         }) 
     }
