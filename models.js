@@ -17,4 +17,4 @@ const schema1 = new mongoose.Schema({
   module.exports = {
     doctor:  mongoose.model('doctors',schema) ,
     public: mongoose.model('public',schema1)
-    }
+  }
