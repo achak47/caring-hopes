@@ -71,6 +71,7 @@ const emailActivateDoctor = (req, res, bcrypt, doctor) => {
     const {token} = req.body;
 
     if (token) {
+        //decoding the jwt token received from the parameters of the authentication url
         jwt.verify (token, account_activate_api_key, function (err, decodedToken) {
             if (err) {
                 return res.status (400).json ({error : 'Incorrect or expired link'})
@@ -79,14 +80,18 @@ const emailActivateDoctor = (req, res, bcrypt, doctor) => {
             const {name, email, password, desc, number} = decodedToken;
             const hash = bcrypt.hashSync(password);
 
-            doctor.findOne ({'email' : email}, (err, result) => {
-                if (err ) throw err;
-                if (result.length) {
+            //check whether a people with same email id already exists or not
+            //will prevent duplicate records from entering into the database when the authentication link is refreshed 
+            doctor.find ({'email' : email}, (err, result) => {
+                if (err ) {
+                    console.log (err);
+                }
+                else if (result.length) {
                     //do nothing cause email already exists in the database
                     //to avoid reinsertion on refresh
                 }
                 else {
-                    new doctor({
+                    new doctor({ //formulating the new record using the doctor schema 
                         name : name,
                         number : number,
                         email: email,
@@ -94,7 +99,10 @@ const emailActivateDoctor = (req, res, bcrypt, doctor) => {
                         password: hash,
         
                     }).save((err,result)=>{
-                        if(err) throw err ;
+                        if(err) {
+                            console.log ('Duplicate Entry prevented');
+                            //console.log (err); uncommment to check the email id for which duplicate entry takes place 
+                        } //successfully inserted into the database 
                         else res.status(200).json('Success!')
                     })
                 }
@@ -196,7 +204,10 @@ const emailActivatePublic = (req, res, bcrypt, public) => {
                         password: hash,
         
                     }).save((err,result)=>{
-                        if(err) throw err ;
+                        if(err) {
+                            console.log('Duplicate entry prevented !');
+                            //console.log (err); uncomment to check for which email id the dupicate entry takes place 
+                        }
                         else res.status(200).json('Success!')
                     })
                 }
