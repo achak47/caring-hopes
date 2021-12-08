@@ -1,6 +1,8 @@
+const { Timestamp } = require('bson');
 const mongoose = require('mongoose')
 const uniqueValidator = require ('mongoose-unique-validator');
 
+//schema for doctors 
 const schema = new mongoose.Schema({
     name : String,
     number: String,
@@ -8,6 +10,8 @@ const schema = new mongoose.Schema({
     desc : String,
     password : String
   });
+
+//schema for normal public 
 const schema1 = new mongoose.Schema({
     name : String,
     number: String,
@@ -17,7 +21,16 @@ const schema1 = new mongoose.Schema({
 schema.plugin (uniqueValidator);
 schema1.plugin (uniqueValidator);
 
+//schema for slot updates by doctors
+const freeSlotSchema  = new mongoose.Schema ( {
+    email : String,
+    date : String,
+    time : String
+}) 
+
+//exporting the modules.
   module.exports = {
     doctor:  mongoose.model('doctors',schema) ,
-    public: mongoose.model('public',schema1)
+    public: mongoose.model('public',schema1) ,
+    freeSlot : mongoose.model ('freeSlot', freeSlotSchema)
   }
