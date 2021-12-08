@@ -1,10 +1,11 @@
 const jwt = require ('jsonwebtoken');
 const account_activate_api_key = "accountactivate123";
-CLIENT_URL="http://localhost:3000";
+CLIENT_URL="http://localhost:3000"; //needs to changed accordingly 
 
+//method to generate a authentication token as soon as a doctor registers
 const registerdoctor = (req,res,bcrypt,nodemailer,doctor)=>{
     const { email,name,password,desc,number } = req.body ;  //Destructuring
-    if(!email||!name||!password)
+    if(!email||!name||!password) //check for the basic requirements
     {
        if(!email)
        {
@@ -18,12 +19,14 @@ const registerdoctor = (req,res,bcrypt,nodemailer,doctor)=>{
        {
         return res.status(400).json('Pls enter your name') ;
        }
-    }
+    } 
+    //check whether the same mail id  exist or not
     doctor.find({'email':email},async (err,result)=>{
         if(err) throw err ;
         if(result.length){res.status(200).json('User with the same Email Already Exists');
     }
         else{
+            //generte the token , expiry time set to 20 mins 
             const token = jwt.sign ({name, email, password, desc, number}, account_activate_api_key, {expiresIn : '20m'});
 
             //reusable transporter objec using the default SMTP transport
