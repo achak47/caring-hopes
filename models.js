@@ -16,6 +16,7 @@ const schema1 = new mongoose.Schema({
     name : String,
     number: String,
     email : {type : String, unique : true},
+    doctor_email: String,
     password : String
   });
 schema.plugin (uniqueValidator);
@@ -25,7 +26,9 @@ schema1.plugin (uniqueValidator);
 const freeSlotSchema  = new mongoose.Schema ( {
     email : String,
     date : String,
-    time : String
+    time : String,
+    isbooked : Boolean,
+    patient_email : String,
 }) 
 
 //exporting the modules.
