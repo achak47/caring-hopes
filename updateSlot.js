@@ -16,6 +16,7 @@ const updateSlot = (req, res, freeSlot) => {
         email : email,
         date : date,
         time : time,
+        slot_id : Date.now().toString() 
     }).save ((err, result) => {
         if (err) {
             console.log ('Error in uploading free slot from server side');
