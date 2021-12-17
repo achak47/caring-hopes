@@ -45,5 +45,5 @@ const slotcount = new mongoose.schema ({
     doctor:  mongoose.model('doctors',schema) ,
     public: mongoose.model('public',schema1) ,
     freeSlot : mongoose.model('freeSlot', freeSlotSchema) ,
-    slotcount_id: mongoose.model('slotId', slotcount)
+    slotId: mongoose.model('slotId', slotcount)
   }
