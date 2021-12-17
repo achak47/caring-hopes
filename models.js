@@ -31,19 +31,11 @@ const freeSlotSchema  = new mongoose.Schema ( {
     time: Date,
     date: Date,
     meetlink: String,
-    slot_id: Number
+    slot_id: String
 }) 
-//Schema for storing the static variable
-const slotcount = new mongoose.schema ({
-    count:{
-        type: Number ,
-        default: 0
-    }
-})
 //exporting the modules.
   module.exports = {
     doctor:  mongoose.model('doctors',schema) ,
     public: mongoose.model('public',schema1) ,
-    freeSlot : mongoose.model('freeSlot', freeSlotSchema) ,
-    slotId: mongoose.model('slotId', slotcount)
+    freeSlot : mongoose.model('freeSlot', freeSlotSchema) 
   }
