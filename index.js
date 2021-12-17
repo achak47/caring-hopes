@@ -13,7 +13,6 @@ const Register = require("./register") ;
 const Login = require("./signin") ;
 const doctor = Users.doctor ;
 const public = Users.public ;
-const slotId = Users.slotId ;
 const freeSlot = Users.freeSlot;
 const updateSlot = require ('./updateSlot');
 
@@ -57,7 +56,7 @@ app.post('/signin',(req,res)=>{Login.doctorlogin(req,res,bcrypt,doctor)}) ;
 app.post('/signinpeople',(req,res)=>{Login.peoplelogin(req,res,bcrypt,public)}) ;
 app.post ('/email-activate-doctor', (req, res) => {Register.emailActivateDoctor(req, res, bcrypt, doctor)});
 app.post ('/email-activate-public', (req, res) => {Register.emailActivatePublic(req, res, bcrypt, public)});
-app.post ('/update-free-slot', (req, res) => {updateSlot.updateSlot (req, res, freeSlot,slotId)});
+app.post ('/update-free-slot', (req, res) => {updateSlot.updateSlot (req, res, freeSlot)});
 
 app.listen(process.env.PORT || port , ()=> {
     mongoose.connect(process.env.mongopath,{
