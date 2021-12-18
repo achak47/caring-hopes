@@ -28,8 +28,6 @@ const freeSlotSchema  = new mongoose.Schema ( {
     date : String,
     time : String,
     isbooked : Boolean,
-    time: Date,
-    date: Date,
     meetlink: String
 }) 
 
