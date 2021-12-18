@@ -1,4 +1,5 @@
 //method update the slot by the doctor
+//slot id needs to be updated 
 const updateSlot = (req, res, freeSlot) => {
     const {doc_email, date, time } = req.body;
     if (!doc_email || !date || !time) {

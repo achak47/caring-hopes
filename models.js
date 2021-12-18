@@ -28,12 +28,18 @@ const freeSlotSchema  = new mongoose.Schema ( {
     date : String,
     time : String,
     isbooked : Boolean,
+<<<<<<< HEAD
     meetlink: String
+=======
+    time: Date,
+    date: Date,
+    meetlink: String,
+    slot_id: String
+>>>>>>> refs/remotes/origin/main
 }) 
-
 //exporting the modules.
   module.exports = {
     doctor:  mongoose.model('doctors',schema) ,
     public: mongoose.model('public',schema1) ,
-    freeSlot : mongoose.model ('freeSlot', freeSlotSchema)
+    freeSlot : mongoose.model('freeSlot', freeSlotSchema) 
   }
