@@ -20,6 +20,7 @@ const updateSlot = (req, res, freeSlot) => {
         time : time,
         isbooked: false,
         meetlink: null,
+        slot_id: Date.now().toString()
     }).save ((err, result) => {
         if (err) {
             console.log ('Error in uploading free slot from server side');

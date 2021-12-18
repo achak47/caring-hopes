@@ -28,14 +28,8 @@ const freeSlotSchema  = new mongoose.Schema ( {
     date : String,
     time : String,
     isbooked : Boolean,
-<<<<<<< HEAD
-    meetlink: String
-=======
-    time: Date,
-    date: Date,
     meetlink: String,
-    slot_id: String
->>>>>>> refs/remotes/origin/main
+    slot_id : String,
 }) 
 //exporting the modules.
   module.exports = {
