@@ -19,7 +19,7 @@ const updateSlot = require ('./updateSlot');
 app.use(express.json()) ; //Middleware
 app.use(cors()) ;
 app.get('/' , (req,res)=>{
-    res.json('Hi World') ;
+    res.status(200).json('Hi World') ;
 })
 app.get('/api',(req,res)=>{
    var obj = {} ;
@@ -66,3 +66,5 @@ app.listen(process.env.PORT || port , ()=> {
         console.log('Connection Succesful !!!')
     }).catch((err)=> console.log(err))
   })
+
+module.exports = app;
