@@ -27,7 +27,7 @@ const freeSlotSchema  = new mongoose.Schema ( {
     patient_email : String,
     date : String,
     time : String,
-    isbooked : Boolean,
+    iscompleted : Boolean,
     meetlink: String,
     slot_id : String,
 }) 
